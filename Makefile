@@ -14,7 +14,7 @@ up:
 	docker compose up -d
 
 lint:
-	golangci-lint run --skip-files "/opt/homebrew/Cellar/go/.*" ./...
+	./bin/golangci-lint run
 
 get-deps:
 		GOBIN=$(LOCAL_BIN) go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.61.0
