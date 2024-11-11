@@ -1,13 +1,12 @@
-/*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
-	"os"
-
 	"github.com/spf13/cobra"
+	"log"
+	"my-template/internal/config"
 )
+
+const migratePath = "file://migrate"
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -25,11 +24,19 @@ to quickly create a Cobra application.`,
 }
 
 func Execute() {
+	cfg := config.NewConfig()
+	cfg.ConfigStorageField()
+	migrate := migrateCmd()
+
+	migrate.AddCommand(migrateUpCmd(cfg.Storage.GetMigrationURL(), migratePath))
+	migrate.AddCommand(migrateDownCmd(cfg.Storage.GetMigrationURL(), migratePath))
+
 	rootCmd.AddCommand(restCmd())
-	rootCmd.AddCommand(migrateCmd())
+	rootCmd.AddCommand(migrate)
+
 	err := rootCmd.Execute()
 	if err != nil {
-		os.Exit(1)
+		log.Fatal(err)
 	}
 }
 
