@@ -13,6 +13,9 @@ migrate-down:
 up:
 	docker compose up -d
 
+down:
+	docker compose down
+
 lint:
 	./bin/golangci-lint run
 

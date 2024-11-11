@@ -42,6 +42,8 @@ func (s *Storage) Open() error {
 
 	log.Println("DB connection...")
 
+	defer db.Close()
+
 	return nil
 }
 

@@ -1,18 +1,18 @@
 package storage
 
 import (
+	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/joho/godotenv"
 	"log"
-	"os"
 )
 
 type Config struct {
-	Host    string `env:"DB_HOST"`
-	Port    string `env:"DB_PORT"`
-	User    string `env:"DB_USER"`
-	Pass    string `env:"DB_PASSWORD"`
-	Name    string `env:"DB_NAME"`
-	SSLMode string `env:"DB_SSL_MODE"`
+	Host    string `env:"DB_HOST" env-Default:"localhost"`
+	Port    string `env:"DB_PORT" env-Default:"5435"`
+	User    string `env:"DB_USER" env-Default:"postgres"`
+	Pass    string `env:"DB_PASSWORD" env-Default:"postgres"`
+	Name    string `env:"DB_NAME" env-Default:"postgres"`
+	SSLMode string `env:"DB_SSL_MODE" env-Default:"disable"`
 }
 
 func NewStorageConfig() *Config {
@@ -22,24 +22,14 @@ func NewStorageConfig() *Config {
 
 	var cfg Config
 
-	cfg.Host = getEnvOfFatal("DB_HOST")
-	cfg.Port = getEnvOfFatal("DB_PORT")
-	cfg.User = getEnvOfFatal("DB_USER")
-	cfg.Pass = getEnvOfFatal("DB_PASSWORD")
-	cfg.Name = getEnvOfFatal("DB_NAME")
-	cfg.SSLMode = getEnvOfFatal("DB_SSL_MODE")
+	if err := cleanenv.ReadEnv(&cfg); err != nil {
+		log.Println("the configuration with default values has been loaded")
+
+		return nil
+	}
 
 	log.Println("config successfully")
 
 	return &cfg
 
-}
-
-func getEnvOfFatal(key string) string {
-	value := os.Getenv(key)
-	if value == "" {
-		log.Fatalf("%s environment variable not set", key)
-	}
-
-	return value
 }
