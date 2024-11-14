@@ -50,3 +50,7 @@ func (s *Storage) Open() error {
 func (s *Storage) Close() error {
 	return s.db.Close()
 }
+
+func (s *Storage) GetDB() *sql.DB {
+	return s.db
+}
