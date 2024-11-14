@@ -1,6 +1,9 @@
 LOCAL_BIN:=$(CURDIR)/bin
 
 
+start-server:
+		go run main.go rest
+
 create-migration:
 		migrate create -ext sql -dir migrate -seq $(NAME)
 

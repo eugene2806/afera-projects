@@ -6,7 +6,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=my_template_1
+      - POSTGRES_DB=afera_projects_1
     networks:
       - backend
     volumes:
