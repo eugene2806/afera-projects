@@ -79,7 +79,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: ".env docker-compose.yml"
+          source: "./.env,./docker-compose.yml"
           target: "/root/"
 
       # Deploy to Server
