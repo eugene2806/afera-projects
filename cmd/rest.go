@@ -15,8 +15,8 @@ func restCmd() *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			serv := server.BuildServer()
 			handler := builder.NewHandlerBuilder(serv).BuildHandler()
-			restServer := builder.BuildRestServer("8080", handler)
-			log.Println("rest server start")
+			restServer := builder.BuildRestServer("50051", handler)
+			log.Println("rest server start...")
 			log.Fatal(restServer.ListenAndServe())
 		},
 	}
