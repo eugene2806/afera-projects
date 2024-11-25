@@ -90,7 +90,7 @@ jobs:
               # Set up variables
               TAG_NAME=$(echo $GITHUB_SHA | head -c7)
               
-              # Login into Selectel Registry
+              # Login into Selectel Registry .
               docker login -u ${{ secrets.DOCKER_USERNAME }} -p "${{ secrets.DOCKER_PASSWORD }}" $REGISTRY
               
               # Updating the image
