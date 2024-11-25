@@ -12,9 +12,26 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    image: cr.selcloud.ru/docker-star/test-server:v0.0.1
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - "50051:50051"
+    networks:
+      - backend
+
 networks:
   backend:
     driver: bridge
 
 volumes:
   db-data:
+
