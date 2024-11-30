@@ -4,7 +4,10 @@ on:
   push:
     branches: [main, master]
   pull_request:
-    branches: [main, master]
+    branches:
+      - main
+    types:
+      - closed
 
 env:
   REGISTRY: "cr.selcloud.ru/docker-star"
@@ -21,15 +24,15 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v4
 
-      # Шаг 3: Установить Make
+      #  Установить Make
       - name: Install Make
         run: sudo apt-get install make
 
-      # Шаг 4: Выполнить команду из Makefile (например, get-deps)
+      #  Выполнить команду из Makefile
       - name: Install dependencies via Makefile
         run: make get-deps
 
-      # Шаг 5: Запуск линтера (применимо, если в Makefile есть такая команда)
+      #  Запуск линтера
       - name: Run linter
         run: make lint
 
@@ -55,7 +58,7 @@ jobs:
       # Проверка кода из репозитория
       - name: Checkout main
         uses: actions/checkout@v4
-        
+
       # Stopping the current containers on the server
       - name: Stop containers on server
         uses: appleboy/ssh-action@v1.2.0
@@ -79,7 +82,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: "./.env,./docker-compose.yml"
+          source: "./docker-compose.yml"
           target: "/root/"
 
       # Deploy to Server
@@ -103,5 +106,4 @@ jobs:
               # Launching containers with a new build
               docker compose up -d
               
-
 
