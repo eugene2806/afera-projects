@@ -36,7 +36,7 @@ func Response200(writer http.ResponseWriter, response interface{}) {
 	json.NewEncoder(writer).Encode(msg)
 }
 
-func Response201(writer http.ResponseWriter, response string) {
+func Response201(writer http.ResponseWriter, response interface{}) {
 	msg := Response{
 		Response: response,
 	}
