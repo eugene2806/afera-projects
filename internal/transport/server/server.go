@@ -1,18 +1,14 @@
 package server
 
 import (
-	"afera-projects/internal/errors_pkg"
-	"afera-projects/internal/model"
 	"afera-projects/internal/repository"
 	"afera-projects/internal/responses"
 	"database/sql"
-	"encoding/json"
 	"errors"
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
-	"strconv"
 )
 
 type Server struct {
@@ -34,42 +30,7 @@ func initHeaders(writer http.ResponseWriter) {
 }
 
 func (s *Server) HandleGetProjectsList(w http.ResponseWriter, r *http.Request) {
-	initHeaders(w)
 
-	log.Println("GET Project List - /projects?page=x&limit=y")
-
-	page := r.URL.Query().Get("page")
-	limit := r.URL.Query().Get("limit")
-
-	var numErr *strconv.NumError
-
-	projects, fullCount, fullPage, err := s.ProjectRepository.GetAllProjects(page, limit)
-
-	if errors.As(err, &numErr) {
-		log.Printf("problem when passing parameters : %s", numErr.Err)
-
-		responses.Response400(w, "invalid request parameters")
-
-		return
-	}
-
-	if errors.Is(err, errors_pkg.ErrLessZero) {
-		log.Printf("problem when passing parameters : %s", err)
-
-		responses.Response400(w, "invalid request parameters")
-
-		return
-	}
-
-	if err != nil {
-		log.Printf("problem when passing parameters : %s", err)
-
-		responses.Response500(w, "Problems getting data from the database")
-
-		return
-	}
-
-	responses.ResponseProjects200(w, projects, fullCount, fullPage)
 }
 
 func (s *Server) HandleGetProjectByID(w http.ResponseWriter, r *http.Request) {
@@ -109,33 +70,6 @@ func (s *Server) HandleGetProjectByID(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) HandleCreateProject(w http.ResponseWriter, r *http.Request) {
-	initHeaders(w)
-
-	log.Println("POST Project - /projects")
-
-	var req model.ProjectRequest
-
-	json.NewDecoder(r.Body).Decode(&req)
-
-	resp, err := s.ProjectRepository.Create(req)
-
-	if errors.Is(err, errors_pkg.ErrInvalidRequest) {
-		log.Printf("%s", err)
-
-		responses.Response400(w, "Invalid request")
-
-		return
-	}
-
-	if err != nil {
-		log.Printf("Failed to create project :%s", err)
-
-		responses.Response500(w, "Failed to create project")
-
-		return
-	}
-
-	responses.Response201(w, resp)
 
 }
 
