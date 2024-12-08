@@ -16,6 +16,6 @@ type Project struct {
 	Name      string     `json:"name"`
 	Info      *string    `json:"info"`
 	CreatedAt time.Time  `json:"created_at"`
-	UpdatedAt time.Time  `json:"updated_at"` // Это поле равно CreatedAt при создании?
+	UpdatedAt time.Time  `json:"updated_at"`
 	DeletedAt *time.Time `json:"deleted_at"`
 }
