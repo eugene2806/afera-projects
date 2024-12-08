@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"afera-projects/storage"
 	"database/sql"
+	"my-template/storage"
 )
 
 type ProjectRepository struct {

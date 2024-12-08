@@ -16,6 +16,6 @@ COPY --from=builder /afera-projects/bin/rest_server .
 
 COPY --from=builder /afera-projects/.env .
 
-COPY --from=builder /afera-projects/migrate ./migrate
+ENTRYPOINT ["./rest_server"]
 
-ENTRYPOINT ["/bin/sh", "-c", "./rest_server migrate up & ./rest_server rest"]
+CMD ["rest"]

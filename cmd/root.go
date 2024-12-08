@@ -1,17 +1,16 @@
 package cmd
 
 import (
-	"afera-projects/internal/config"
-	"afera-projects/storage"
 	"github.com/spf13/cobra"
 	"log"
+	"my-template/internal/config"
 )
 
 const migratePath = "file://migrate"
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "afera-projects",
+	Use:   "my-template",
 	Short: "A brief description of your application",
 	Long: `A longer description that spans multiple lines and likely contains
 examples and usage of using your application. For example:
@@ -25,17 +24,14 @@ to quickly create a Cobra application.`,
 }
 
 func Execute() {
-	cfg := config.NewStorageConfig()
-	stor := storage.NewStorage(cfg)
-	stor.Open()
-	defer stor.Close()
-
+	cfg := config.NewConfig()
+	cfg.ConfigStorageField()
 	migrate := migrateCmd()
 
-	migrate.AddCommand(migrateUpCmd(stor.GetMigrationURL(), migratePath))
-	migrate.AddCommand(migrateDownCmd(stor.GetMigrationURL(), migratePath))
+	migrate.AddCommand(migrateUpCmd(cfg.Storage.GetMigrationURL(), migratePath))
+	migrate.AddCommand(migrateDownCmd(cfg.Storage.GetMigrationURL(), migratePath))
 
-	rootCmd.AddCommand(restCmd(stor))
+	rootCmd.AddCommand(restCmd())
 	rootCmd.AddCommand(migrate)
 
 	err := rootCmd.Execute()

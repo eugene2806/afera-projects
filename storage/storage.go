@@ -1,7 +1,6 @@
 package storage
 
 import (
-	"afera-projects/internal/config"
 	"database/sql"
 	"fmt"
 	_ "github.com/lib/pq"
@@ -9,11 +8,11 @@ import (
 )
 
 type Storage struct {
-	config *config.Config
+	config *Config
 	db     *sql.DB
 }
 
-func NewStorage(config *config.Config) *Storage {
+func NewStorage(config *Config) *Storage {
 	return &Storage{
 		config: config,
 	}
@@ -43,16 +42,13 @@ func (s *Storage) Open() error {
 
 	log.Println("DB connection...")
 
+	defer db.Close()
+
 	return nil
 }
 
 func (s *Storage) Close() error {
-	if s.db != nil {
-
-		return s.db.Close()
-	}
-
-	return nil
+	return s.db.Close()
 }
 
 func (s *Storage) GetDB() *sql.DB {
