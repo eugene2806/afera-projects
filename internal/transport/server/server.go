@@ -66,15 +66,3 @@ func (s *Server) HandleGetProjectsList(w http.ResponseWriter, r *http.Request) {
 
 	responses.ResponseProjects200(w, projects, fullCount, fullPage)
 }
-
-func (s *Server) HandleGetProjectByID(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func (s *Server) HandleCreateProject(w http.ResponseWriter, r *http.Request) {
-	
-}
-
-func (s *Server) HandleUpdateProject(w http.ResponseWriter, r *http.Request) {}
-
-func (s *Server) HandleDeleteProject(w http.ResponseWriter, r *http.Request) {}

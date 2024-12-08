@@ -6,7 +6,6 @@ import (
 	"afera-projects/storage"
 	"database/sql"
 	"fmt"
-	"github.com/google/uuid"
 	"strconv"
 )
 
@@ -94,12 +93,4 @@ func (p *ProjectRepository) GetAllProjects(pageStr, limitStr string) ([]*model.P
 	}
 
 	return projects, fullCount, fullPage, nil
-}
-
-func (p *ProjectRepository) GetByID(id uuid.UUID) {
-
-}
-
-func (p *ProjectRepository) Create(req model.ProjectRequest) {
-
 }
