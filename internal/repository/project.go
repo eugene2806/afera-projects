@@ -18,10 +18,6 @@ func NewProjectRepository(storage *storage.Storage) *ProjectRepository {
 	}
 }
 
-func (p *ProjectRepository) GetAllProjects(pageStr, limitStr string) () {
-
-}
-
 func (p *ProjectRepository) GetByID(id uuid.UUID) (interface{}, error) {
 	project := model.Project{}
 

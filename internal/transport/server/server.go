@@ -29,10 +29,6 @@ func initHeaders(writer http.ResponseWriter) {
 	writer.Header().Set("content-type", "application/json")
 }
 
-func (s *Server) HandleGetProjectsList(w http.ResponseWriter, r *http.Request) {
-
-}
-
 func (s *Server) HandleGetProjectByID(w http.ResponseWriter, r *http.Request) {
 	initHeaders(w)
 
@@ -68,11 +64,3 @@ func (s *Server) HandleGetProjectByID(w http.ResponseWriter, r *http.Request) {
 
 	responses.Response200(w, project)
 }
-
-func (s *Server) HandleCreateProject(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func (s *Server) HandleUpdateProject(w http.ResponseWriter, r *http.Request) {}
-
-func (s *Server) HandleDeleteProject(w http.ResponseWriter, r *http.Request) {}
