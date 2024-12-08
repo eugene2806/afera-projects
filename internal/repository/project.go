@@ -21,14 +21,6 @@ func NewProjectRepository(storage *storage.Storage) *ProjectRepository {
 	}
 }
 
-func (p *ProjectRepository) GetAllProjects(pageStr, limitStr string) () {
-
-}
-
-func (p *ProjectRepository) GetByID(id uuid.UUID) () {
-
-}
-
 func (p *ProjectRepository) Create(req model.ProjectRequest) (interface{}, error) {
 	if req.Name == "" || req.Info == "" {
 
