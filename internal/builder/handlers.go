@@ -1,8 +1,8 @@
 package builder
 
 import (
+	"afera-projects/internal/transport/server"
 	"github.com/gorilla/mux"
-	"my-template/internal/transport/server"
 	"net/http"
 )
 

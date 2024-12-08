@@ -28,6 +28,9 @@ get-deps:
 build:
 	go build -o ./bin/rest_server ./main.go
 
+docker-build:
+	docker build -t cr.selcloud.ru/docker-star/test-server:v0.0.1 .
+
 build-linux:
 	GOOS=linux GOARCH=amd64 go build -o ./bin/rest_linux ./main.go
 

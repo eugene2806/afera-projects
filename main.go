@@ -1,7 +1,7 @@
 package main
 
 import (
-	"my-template/cmd"
+	"afera-projects/cmd"
 )
 
 func main() {
