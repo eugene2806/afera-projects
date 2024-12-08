@@ -2,9 +2,11 @@ package server
 
 import (
 	"afera-projects/internal/errors_pkg"
+	"afera-projects/internal/model"
 	"afera-projects/internal/repository"
 	"afera-projects/internal/responses"
 	"database/sql"
+	"encoding/json"
 	"errors"
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
@@ -104,4 +106,35 @@ func (s *Server) HandleGetProjectByID(w http.ResponseWriter, r *http.Request) {
 	}
 
 	responses.Response200(w, project)
+}
+
+func (s *Server) HandleCreateProject(w http.ResponseWriter, r *http.Request) {
+	initHeaders(w)
+
+	log.Println("POST Project - /projects")
+
+	var req model.ProjectRequest
+
+	json.NewDecoder(r.Body).Decode(&req)
+
+	resp, err := s.ProjectRepository.Create(req)
+
+	if errors.Is(err, errors_pkg.ErrInvalidRequest) {
+		log.Printf("%s", err)
+
+		responses.Response400(w, "Invalid request")
+
+		return
+	}
+
+	if err != nil {
+		log.Printf("Failed to create project :%s", err)
+
+		responses.Response500(w, "Failed to create project")
+
+		return
+	}
+
+	responses.Response201(w, resp)
+
 }
