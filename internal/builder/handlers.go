@@ -19,6 +19,7 @@ func (h *HandlerBuilder) BuildHandler() *mux.Router {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/ping", h.server.GetPing).Methods(http.MethodGet)
+	router.HandleFunc("/projects", h.server.HandleGetProjectsList).Methods(http.MethodGet)
 
 	return router
 }
