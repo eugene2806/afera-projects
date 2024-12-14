@@ -17,7 +17,7 @@ func BuildServer(rep *repository.ProjectRepository) *Server {
 }
 
 func (s *Server) GetPing(W http.ResponseWriter, r *http.Request) {
-	log.Println("SUPER PING")
+	log.Println("SUPER PINGs")
 }
 
 func initHeaders(writer http.ResponseWriter) {
